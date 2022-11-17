@@ -1,12 +1,12 @@
 # User Stories
 
-Understand how the Food Guides Framework helps a community in Oregon to provide access to food assistance and to advocate for long term, positive change. Meet:
+Understand how the Food Resource Guides Framework helps a community in Oregon to provide access to food assistance and to advocate for long term, positive change. Meet:
 
 - [Ada](#ada-director-of-a-food-policy-center), the director of a food policy center
-- [Brenda](#brenda-store-clerk), a store clerk who wants to help out her city
-- [Carl](#carl-college-student), a college student experiencing food insecurity 
+- [Brenda](#brenda-store-clerk), a store clerk who just got back on her feet and wants to help others do the same
+- [Carl](#carl-college-student), a college student experiencing food insecurity during finals week
 - [Dierdra](#dierdra-elderly-retiree), an elderly retiree who speaks little English and is facing too many large bills this month 
-- [Elisabet](#elisabet-city-council-member), a city council member who campaigns forChildren
+- [Elisabet](#elisabet-city-council-member), a city council member who campaigns for children support services
 
 ## Ada, Director of a Food Policy Center
 
