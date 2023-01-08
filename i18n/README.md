@@ -4,7 +4,7 @@
     `~/.local/share/argos-translate`
 
 ## Less-technical LibreTranlate discussion board:  
-    https://community.libretranslate.com/ 
+- https://community.libretranslate.com/ 
 
 
 ## Running ltmanage command
