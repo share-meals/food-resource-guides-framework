@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  mq:
+    image: rabbitmq
+    container_name: mq_service
+    restart: unless-stopped
+    ports:
+      - 5672:5672
