@@ -1,0 +1,10 @@
+version: '3'
+
+# Microservices to be launched
+services: 
+  mq: 
+    container_name: mq_microservice
+    image: rabbitmq
+    restart: unless-stopped
+    ports: 
+      - 5672:5672

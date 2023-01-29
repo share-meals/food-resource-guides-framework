@@ -30,3 +30,5 @@ healthcare:
 - convert all cli flags to env variables
     - create centralzed env files
 - find a way to easily specify api keys in docker compose
+- figure out rabbitmq
+- figure out how to connect prometheus and libretranslate
