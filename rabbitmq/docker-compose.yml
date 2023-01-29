@@ -2,8 +2,9 @@ version: '3'
 
 services:
   mq:
-    image: rabbitmq
+    image: rabbitmq:management
     container_name: mq_service
     restart: unless-stopped
     ports:
       - 5672:5672
+      - 15672:15672
