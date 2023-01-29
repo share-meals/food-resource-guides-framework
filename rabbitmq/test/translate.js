@@ -1,18 +1,34 @@
 const amqp = require('amqplib');
 
 (async () => {
-    const queue = 'tasks';
-    const exchange = 'task_exchange';
+    const exchange = 'libretranslate';
+    //const queue = 'libretranslate';
     const connection = await amqp.connect('amqp://localhost');
     const channel = await connection.createChannel();
-    await channel.assertQueue(queue);
     await channel.assertExchange(exchange, 'direct', {
-	durable: false
+	autoDelete: true,
+	durable: true
     });
-    
 
-    channel.consume(queue, (message) => {
-	console.log(message);
+    const q = await channel.assertQueue('requests');
+    channel.bindQueue(q.queue, exchange, 'request');
+
+    channel.consume(q.queue, (message) => {
+	console.log('Received:', message.content.toString());
+	channel.ack(message);
+	const translation = message.content.toString().toUpperCase();
+	const reply_queue = message.properties.replyTo;
+	const message_id = message.properties.messageId;
+	
+	channel.publish(
+	    exchange,
+	    reply_queue,
+	    Buffer.from(translation),
+	    {
+		messageId: message_id
+	    }
+	);
+	
 	/*
 	if(message !== null){
 	    console.log('Received:', message.content.toString());
