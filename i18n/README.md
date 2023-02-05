@@ -29,6 +29,10 @@ healthcare:
 ## Todo
 - convert all cli flags to env variables
     - create centralzed env files
-- find a way to easily specify api keys in docker compose
-- figure out rabbitmq
+    
+- rabbitmq queues & exchange auto delete
+- rabbit mq api keys
+
+[ IN PROGRESS ] 
 - figure out how to connect prometheus and libretranslate
+- sending libretranslate api request through rabbitmq/translate.js
