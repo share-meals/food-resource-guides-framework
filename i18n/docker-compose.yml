@@ -6,16 +6,18 @@ services:
     #build: .
     #image: libretranslate/libretranslate
     image: ghcr.io/t-lo/libretranslate:v1.3.8-models
-    restart: unless-stopped
-    ports:
-      - 5000:5000
+    # restart: unless-stopped
+    # ports:
+    #   - 5001:5000
     command: --char-limit 1000 --req-limit 100 --batch-limit 100 --debug --load-only es,zh,ru --disable-web-ui --api-keys 
     # flags to include during production:
     # --ssl --metrics --require-api-key-origin null
     environment:
       - LT_API_KEYS_DB_PATH=/app/db/api_keys.db # Same result as `db/api_keys.db` or `./db/api_keys.db`
+    networks: 
+      - fg_services
     volumes:
-       - libretranslate_api_keys:/app/db
+      - libretranslate_api_keys:/app/db
     # TODO: need viable healthcheck command
     #healthcheck:
     #  test: ["CMD-SHELL", 'curl -X POST "http://0.0.0.0:5000/translate" -H  "accept: application/json" -H  "Content-Type: application/x-www-form-urlencoded" -d "q=hello%20world&source=en&target=es&format=text" || exit 1']
@@ -25,7 +27,17 @@ services:
     #  start_period: 0s
 
   libretranslate_worker:
+    container_name: libretranslate_worker
     build: './libretranslate_worker'
+    networks: 
+      - fg_services
+    # ports:
+      # - 5001:5000
+      # - 5672:5672
 
 volumes:
   libretranslate_api_keys:
+
+networks:
+  fg_services:
+    driver: bridge
