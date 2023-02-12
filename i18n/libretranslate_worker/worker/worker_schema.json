@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Libretranslate JSON Schema",
+    "type": "object",
+    "properties": {
+        "q": {
+            "type": "string",
+            "description": "The text to be translated. This text can also be in the format of html",
+            "maxLength": 100,
+            "title": "Query",
+            "examples": ["<p>Hello World</p>", "Hello World"]
+        },
+        "source": {
+            "type": "string",
+            "title": "The language the content to be translated is currently in",
+            "description": "The source language of the text.",
+            "default":"en",
+            "enum": [ "en", "zh", "fr", "es", "de", "it", "ja", "pl", "ru" ]
+        },
+        "target": {
+            "type": "string",
+            "title": "The language the content to be translated is in after translation",
+            "description": "The target language to translate the text to.",
+            "enum": [ "en", "zh", "fr", "es", "de", "it", "ja", "pl", "ru" ]
+        },
+        "format": {
+            "type": "string",
+            "enum": [ "text", "html" ],
+            "default": "text",
+            "description": "The format of the content to be translated."
+        },
+        "api_key": {
+            "type": "string",
+            "description": "The API key for the translation service."
+        }
+    },
+    "required": [ "q", "target" ],
+    "additionalProperties": false
+}

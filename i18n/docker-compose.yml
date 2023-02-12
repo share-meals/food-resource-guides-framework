@@ -24,5 +24,8 @@ services:
     #  retries: 1
     #  start_period: 0s
 
+  libretranslate_worker:
+    build: './libretranslate_worker'
+
 volumes:
   libretranslate_api_keys:
