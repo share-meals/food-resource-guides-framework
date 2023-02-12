@@ -2,7 +2,7 @@ const amqp = require('amqplib');
 const prompt = require('prompt-sync')();
 
 (async () => {
-    //const queue = 'libretranslate';
+
     const reply_queue = 'mavs';
     const connection = await amqp.connect('amqp://localhost');
     const channel = await connection.createChannel();
@@ -12,41 +12,41 @@ const prompt = require('prompt-sync')();
     console.log(`message id: ${message_id}`);
     
     await channel.assertExchange(exchange, 'direct', {
-	autoDelete: true,
-	durable: true
+        autoDelete: true,
+        durable: true
     });
 
     const q = await channel.assertQueue(reply_queue);
     channel.bindQueue(q.queue, exchange, 'mavs');
 
     channel.consume(q.queue, (message) => {
-	channel.ack(message);
-	const response_id = message.properties.messageId;
-	console.log(`for message #${response_id}, translation is ${message.content.toString()}`);
+        channel.ack(message);
+        const response_id = message.properties.messageId;
+        const status = message.properties.headers.statusCode;
+        // console.log("message: ", message.content.toString())
+        status == 400 ? console.log(`Error: ${message.content.toString()}`) : 
+                 console.log(`for message #${response_id}, translation is ${message.content.toString()}`);
     });
     
     
-    const input = prompt('> ');
+    const input = prompt('Message to translate: ');
+    const source = prompt('Source language of message: ');
+    const target = prompt('Language to translate to: ');
 
+    //provide documentation for rabbit mq messaging format
+    
     channel.publish(
-	exchange,
-	severity,
-	Buffer.from(input)
-	,
-	{
-	    replyTo: reply_queue,
-	    messageId: message_id
-	}
+        exchange,
+        severity,
+        Buffer.from(input),
+        {
+            replyTo: reply_queue,
+            messageId: message_id,
+            headers: {
+                source,
+                target
+            }
+        },
     );
 
-    /*
-    setInterval(() => {
-	send_channel.publish(exchange, 'i18n', Buffer.from('from MAVS'));
-	console.log('sent');
-	send_channel.sendToQueue(
-	    queue,
-	    Buffer.from('translate me')
-	);
-    }, 1000);
-    */
 })();
