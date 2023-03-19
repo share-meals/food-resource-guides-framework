@@ -14,8 +14,6 @@ services:
     # --ssl --metrics --require-api-key-origin null
     environment:
       - LT_API_KEYS_DB_PATH=/app/db/api_keys.db # Same result as `db/api_keys.db` or `./db/api_keys.db`
-    networks: 
-      - fg_services
     volumes:
       - libretranslate_api_keys:/app/db
     # TODO: need viable healthcheck command
@@ -29,8 +27,6 @@ services:
   libretranslate_worker:
     container_name: libretranslate_worker
     build: './libretranslate_worker'
-    networks: 
-      - fg_services
     # ports:
       # - 5001:5000
       # - 5672:5672
@@ -39,5 +35,7 @@ volumes:
   libretranslate_api_keys:
 
 networks:
-  fg_services:
+  default:
     driver: bridge
+    external: true
+    name: food_guides
